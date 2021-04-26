@@ -40,6 +40,13 @@ class Enemy(GameSprite):
             self.rect.y += self.speed
 
 
+#Text
+
+font.init()
+font1 = font.SysFont("Arial", 25, bold=1)
+lose1 = font1.render("PLAYER 1 LOSE!", True, (255,0,0))
+lose2 = font1.render("PLAYER 2 LOSE!", True, (255,0,0))
+
 #Sprites
 
 racket = Player('racket.png', 10, 200, 25, 100, 5)
@@ -73,6 +80,16 @@ while game:
 
         if ball.rect.y > win_height-50 or ball.rect.y < 0:
             speed_y *= -1
+        
+        if ball.rect.x < 0:
+            finish = True
+            window.blit(lose1, (80,200))
+            game_over = True
+        
+        if ball.rect.x > win_width-50:
+            finish = True
+            window.blit(lose2, (350,200))
+            game_over = True
 
     rackett.reset()
     ball.reset()
