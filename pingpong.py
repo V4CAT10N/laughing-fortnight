@@ -50,6 +50,9 @@ FPS = 60
 game = True
 finish = False
 
+speed_x = 3
+speed_y = 3
+
 while game:
     for e in event.get():
         if e.type == QUIT:
@@ -60,6 +63,15 @@ while game:
         ball.update()
         racket.update()
         rackett.update()
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+
+        if sprite.collide_rect(racket, ball) or sprite.collide_rect(rackett, ball):
+            speed_x *= -1
+            speed_y *= 1
+
+        if ball.rect.y > win_height-50 or ball.rect.y < 0:
+            speed_y *= -1
 
     rackett.reset()
     ball.reset()
